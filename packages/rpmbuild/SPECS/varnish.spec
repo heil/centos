@@ -16,6 +16,7 @@ BuildRequires: ncurses-devel libxslt groff pcre-devel pkgconfig
 Requires: varnish-libs = %{version}-%{release}
 Requires: logrotate
 Requires: ncurses
+Requires: jemalloc-devel
 Requires: pcre
 Requires(pre): shadow-utils
 Requires(post): /sbin/chkconfig, /usr/bin/uuidgen
