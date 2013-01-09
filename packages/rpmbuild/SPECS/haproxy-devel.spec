@@ -4,18 +4,19 @@
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
 %define patch_count	12
+%define altrelease	dev17
 %define altname	haproxy
 
 Name:           haproxy-devel
 Version:        1.5
-Release:        dev17
+Release:        dev17.%{patch_count}
 Summary:        HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
 
 Group:          System Environment/Daemons
 License:        GPLv2+
 
 URL:            http://haproxy.1wt.eu/
-Source0:        http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-%{version}-%{release}.tar.gz
+Source0:        http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-%{version}-%{altrelease}.tar.gz
 Source1:        %{altname}.init
 Source2:        %{altname}.cfg
 Source3:        %{altname}.logrotate
@@ -32,7 +33,7 @@ Patch9:		0010-OPTIM-epoll-make-use-of-EPOLLRDHUP-1.5-dev17.diff
 Patch10:	0011-OPTIM-splice-detect-shutdowns-and-avoid-spl-1.5-dev17.diff
 Patch11:	0012-OPTIM-splice-assume-by-default-that-splice--1.5-dev17.diff
 
-BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{altrelease}-root-%(%{__id_u} -n)
 BuildRequires:  pcre-devel openssl-devel zlib-devel
 
 Requires:           pcre
@@ -64,7 +65,7 @@ availability environments.
 
 
 %prep
-%setup -q -n %{altname}-%{version}-%{release}
+%setup -q -n %{altname}-%{version}-%{altrelease}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -91,14 +92,14 @@ make USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET="linux26" USE_PCRE=1 ${r
 	SMALL_OPTS="-DBUFSIZE=16384 -DMAXREWRITE=1030 -DSYSTEM_MAXCONN=165530 " \
 	USE_LINUX_TPROXY=1 USE_LINUX_SPLICE=1 USE_REGPARM=1 USE_OPENSSL=1 \
 	USE_ZLIB=yes \
-	VERSION="%{release}-patch-%{patch_count}" 
+	VERSION="%{altrelease}-patch-%{patch_count}" 
 
 make -C contrib/halog \
 	USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET="linux26" USE_PCRE=1 ${regparm_opts} ADDINC="%{optflags} -I/usr/include/pcre" \
 	SMALL_OPTS="-DBUFSIZE=16384 -DMAXREWRITE=1030 -DSYSTEM_MAXCONN=165530 " \
 	USE_LINUX_TPROXY=1 USE_LINUX_SPLICE=1 USE_REGPARM=1 USE_OPENSSL=1 \
 	USE_ZLIB=yes \
-	VERSION="%{release}-patch-%{patch_count}" \
+	VERSION="%{altrelease}-patch-%{patch_count}" \
 	halog
 
 %install
