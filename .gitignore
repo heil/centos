@@ -1,0 +1,4 @@
+packages/rpmbuild/BUILD
+packages/rpmbuild/BUILDROOT
+packages/rpmbuild/RPMS
+packages/rpmbuild/SRPMS
