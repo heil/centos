@@ -3,9 +3,10 @@
 %define haproxy_home    %{_localstatedir}/lib/haproxy
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
-%define patch_count	4
+%define patch_count	12
+%define altname	haproxy
 
-Name:           haproxy
+Name:           haproxy-devel
 Version:        1.5
 Release:        dev17
 Summary:        HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
@@ -15,15 +16,23 @@ License:        GPLv2+
 
 URL:            http://haproxy.1wt.eu/
 Source0:        http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-%{version}-%{release}.tar.gz
-Source1:        %{name}.init
-Source2:        %{name}.cfg
-Source3:        %{name}.logrotate
+Source1:        %{altname}.init
+Source2:        %{altname}.cfg
+Source3:        %{altname}.logrotate
 Patch0:		0001-BUG-MINOR-time-frequency-counters-are-not-t-1.5-dev17.diff
 Patch1:		0002-BUG-MINOR-http-don-t-process-abortonclose-w-1.5-dev17.diff
 Patch2:		0003-BUG-MEDIUM-stream_interface-don-t-close-out-1.5-dev17.diff
 Patch3:		0004-BUG-MEDIUM-checks-ignore-late-resets-after--1.5-dev17.diff
+Patch4:		0005-DOC-fix-bogus-recommendation-on-usage-of-gp-1.5-dev17.diff
+Patch5:		0006-BUG-MINOR-http-compression-lookup-Cache-Con-1.5-dev17.diff
+Patch6:		0007-DOC-typo-and-minor-fixes-in-compression-par-1.5-dev17.diff
+Patch7:		0008-MINOR-config-http-request-configuration-err-1.5-dev17.diff
+Patch8:		0009-MINOR-signal-don-t-block-SIGPROF-by-default-1.5-dev17.diff
+Patch9:		0010-OPTIM-epoll-make-use-of-EPOLLRDHUP-1.5-dev17.diff
+Patch10:	0011-OPTIM-splice-detect-shutdowns-and-avoid-spl-1.5-dev17.diff
+Patch11:	0012-OPTIM-splice-assume-by-default-that-splice--1.5-dev17.diff
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  pcre-devel openssl-devel zlib-devel
 
 Requires:           pcre
@@ -55,11 +64,19 @@ availability environments.
 
 
 %prep
-%setup -q -n %{name}-%{version}-%{release}
+%setup -q -n %{altname}-%{version}-%{release}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
 
 %build
 # No configure script is present, it is all done via make flags
@@ -87,14 +104,14 @@ make -C contrib/halog \
 %install
 rm -rf %{buildroot}
 # there is no install make target, only one file is created during build
-%{__install} -p -D -m 0755 %{name} %{buildroot}%{_sbindir}/%{name}
+%{__install} -p -D -m 0755 %{altname} %{buildroot}%{_sbindir}/%{altname}
 %{__install} -p -D -m 0755 ./contrib/halog/halog %{buildroot}%{_sbindir}/halog
-%{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
-%{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{haproxy_confdir}/%{name}.cfg
-%{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+%{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{altname}
+%{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{haproxy_confdir}/%{altname}.cfg
+%{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{altname}
 %{__install} -d -m 0755 %{buildroot}%{haproxy_home}
 %{__install} -d -m 0755 %{buildroot}%{haproxy_datadir}
-%{__install} -p -D -m 0644 ./doc/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
+%{__install} -p -D -m 0644 ./doc/%{altname}.1 %{buildroot}%{_mandir}/man1/%{altname}.1
 for httpfile in $(find ./examples/errorfiles/ -type f) 
 do
     %{__install} -p -m 0644 $httpfile %{buildroot}%{haproxy_datadir}
@@ -118,13 +135,13 @@ rm -rf %{buildroot}
 
 
 %post
-/sbin/chkconfig --add %{name}
+/sbin/chkconfig --add %{altname}
     
 
 %preun
 if [ $1 = 0 ]; then
-    /sbin/service %{name} stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}
+    /sbin/service %{altname} stop >/dev/null 2>&1
+    /sbin/chkconfig --del %{altname}
 fi  
     
 
@@ -148,11 +165,11 @@ fi
 %dir %{haproxy_datadir}
 %dir %{haproxy_datadir}/*
 %dir %{haproxy_confdir}
-%config(noreplace) %{haproxy_confdir}/%{name}.cfg
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%{_initrddir}/%{name}
-%{_sbindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
+%config(noreplace) %{haproxy_confdir}/%{altname}.cfg
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{altname}
+%{_initrddir}/%{altname}
+%{_sbindir}/%{altname}
+%{_mandir}/man1/%{altname}.1.gz
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_home}
 
 %files log
