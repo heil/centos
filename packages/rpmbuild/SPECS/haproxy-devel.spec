@@ -24,7 +24,7 @@ Patch2:		0003-BUG-MEDIUM-stream_interface-don-t-close-out-1.5-dev17.diff
 Patch3:		0004-BUG-MEDIUM-checks-ignore-late-resets-after--1.5-dev17.diff
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:  pcre-devel 
+BuildRequires:  pcre-devel openssl-devel zlib-devel
 
 Requires:           pcre
 Requires(pre):      %{_sbindir}/useradd
