@@ -5,8 +5,8 @@
 %define kmod_name drbd83
 %define real_name drbd
 
-# If kversion isn't defined on the rpmbuild line, define it here.
-%{!?kversion:%define kversion 2.6.32-279.14.1.el6.%{_target_cpu}}
+# If kversion isn't defined on the rpmbuil9 line, define it here.
+%{!?kversion:%define kversion 2.6.32-279.19.1.el6.%{_target_cpu}}
 
 Summary: Distributed Redundant Block Device driver for Linux
 Name: %{kmod_name}-kmod
