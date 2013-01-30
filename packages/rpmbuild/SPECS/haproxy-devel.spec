@@ -3,7 +3,7 @@
 %define haproxy_home    %{_localstatedir}/lib/haproxy
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
-%define patch_count	12
+%define patch_count	34
 %define altrelease	dev17
 %define altname	haproxy
 
@@ -20,18 +20,41 @@ Source0:        http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-%{version}-
 Source1:        %{altname}.init
 Source2:        %{altname}.cfg
 Source3:        %{altname}.logrotate
-Patch0:		0001-BUG-MINOR-time-frequency-counters-are-not-t-1.5-dev17.diff
-Patch1:		0002-BUG-MINOR-http-don-t-process-abortonclose-w-1.5-dev17.diff
-Patch2:		0003-BUG-MEDIUM-stream_interface-don-t-close-out-1.5-dev17.diff
-Patch3:		0004-BUG-MEDIUM-checks-ignore-late-resets-after--1.5-dev17.diff
-Patch4:		0005-DOC-fix-bogus-recommendation-on-usage-of-gp-1.5-dev17.diff
-Patch5:		0006-BUG-MINOR-http-compression-lookup-Cache-Con-1.5-dev17.diff
-Patch6:		0007-DOC-typo-and-minor-fixes-in-compression-par-1.5-dev17.diff
-Patch7:		0008-MINOR-config-http-request-configuration-err-1.5-dev17.diff
-Patch8:		0009-MINOR-signal-don-t-block-SIGPROF-by-default-1.5-dev17.diff
-Patch9:		0010-OPTIM-epoll-make-use-of-EPOLLRDHUP-1.5-dev17.diff
-Patch10:	0011-OPTIM-splice-detect-shutdowns-and-avoid-spl-1.5-dev17.diff
-Patch11:	0012-OPTIM-splice-assume-by-default-that-splice--1.5-dev17.diff
+Patch0: 0001-BUG-MINOR-time-frequency-counters-are-not-t-1.5-dev17.diff
+Patch1: 0002-BUG-MINOR-http-don-t-process-abortonclose-w-1.5-dev17.diff
+Patch2: 0003-BUG-MEDIUM-stream_interface-don-t-close-out-1.5-dev17.diff
+Patch3: 0004-BUG-MEDIUM-checks-ignore-late-resets-after--1.5-dev17.diff
+Patch4: 0005-DOC-fix-bogus-recommendation-on-usage-of-gp-1.5-dev17.diff
+Patch5: 0006-BUG-MINOR-http-compression-lookup-Cache-Con-1.5-dev17.diff
+Patch6: 0007-DOC-typo-and-minor-fixes-in-compression-par-1.5-dev17.diff
+Patch7: 0008-MINOR-config-http-request-configuration-err-1.5-dev17.diff
+Patch8: 0009-MINOR-signal-don-t-block-SIGPROF-by-default-1.5-dev17.diff
+Patch9: 0010-OPTIM-epoll-make-use-of-EPOLLRDHUP-1.5-dev17.diff
+Patch10: 0011-OPTIM-splice-detect-shutdowns-and-avoid-spl-1.5-dev17.diff
+Patch11: 0012-OPTIM-splice-assume-by-default-that-splice--1.5-dev17.diff
+Patch12: 0013-BUG-MINOR-log-temporary-fix-for-lost-SSL-in-1.5-dev17.diff
+Patch13: 0014-BUG-MEDIUM-peers-only-the-last-peers-sectio-1.5-dev17.diff
+Patch14: 0015-BUG-MEDIUM-remove-supplementary-groups-when-1.5-dev17.diff
+Patch15: 0016-BUG-MEDIUM-config-verbosely-reject-peers-se-1.5-dev17.diff
+Patch16: 0017-BUG-MINOR-epoll-use-a-fix-maxevents-argumen-1.5-dev17.diff
+Patch17: 0018-BUG-MINOR-config-fix-improper-check-for-fai-1.5-dev17.diff
+Patch18: 0019-BUG-MINOR-config-free-peer-s-address-when-e-1.5-dev17.diff
+Patch19: 0020-BUG-MINOR-config-check-the-proper-variable--1.5-dev17.diff
+Patch20: 0021-BUG-MEDIUM-checks-ensure-the-health_status--1.5-dev17.diff
+Patch21: 0022-BUG-MINOR-cli-show-sess-should-always-valid-1.5-dev17.diff
+Patch22: 0023-BUG-MINOR-log-improper-NULL-return-check-on-1.5-dev17.diff
+Patch23: 0024-CLEANUP-http-remove-a-useless-null-check-1.5-dev17.diff
+Patch24: 0025-CLEANUP-tcp-unix-remove-useless-NULL-check--1.5-dev17.diff
+Patch25: 0026-BUG-MEDIUM-signal-signal-handler-does-not-p-1.5-dev17.diff
+Patch26: 0027-BUG-MEDIUM-tools-off-by-one-in-quote_arg-1.5-dev17.diff
+Patch27: 0028-BUG-MEDIUM-uri_auth-missing-NULL-check-and--1.5-dev17.diff
+Patch28: 0029-BUG-MINOR-unix-remove-the-level-field-from--1.5-dev17.diff
+Patch29: 0030-CLEANUP-http-don-t-try-to-deinitialize-http-1.5-dev17.diff
+Patch30: 0031-CLEANUP-config-slowstart-is-never-negative-1.5-dev17.diff
+Patch31: 0032-CLEANUP-config-maxcompcpuusage-is-never-neg-1.5-dev17.diff
+Patch32: 0033-MEDIUM-ssl-add-bind-option-strict-sni-1.5-dev17.diff
+Patch33: 0034-BUG-MEDIUM-ssl-openssl-0.9.8-doesn-t-open-d-1.5-dev17.diff
+
 
 BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{altrelease}-root-%(%{__id_u} -n)
 BuildRequires:  pcre-devel openssl-devel zlib-devel
@@ -78,6 +101,28 @@ availability environments.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
+%patch16 -p1
+%patch17 -p1
+%patch18 -p1
+%patch19 -p1
+%patch20 -p1
+%patch21 -p1
+%patch22 -p1
+%patch23 -p1
+%patch24 -p1
+%patch25 -p1
+%patch26 -p1
+%patch27 -p1
+%patch28 -p1
+%patch29 -p1
+%patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
 
 %build
 # No configure script is present, it is all done via make flags
