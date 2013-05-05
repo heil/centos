@@ -12,7 +12,7 @@ URL:            https://github.com/bumptech/stud
 Source0:        %{name}-%{version}.tar.gz
 Source1:        %{name}.conf
 #Source2:        %{name}.service
-Patch0:         0001-stud-libev.patch
+#Patch0:         0001-stud-libev.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  openssl-devel
