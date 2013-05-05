@@ -6,11 +6,11 @@
 %define real_name drbd
 
 # If kversion isn't defined on the rpmbuil9 line, define it here.
-%{!?kversion:%define kversion 2.6.32-279.19.1.el6.%{_target_cpu}}
+%{!?kversion:%define kversion 2.6.32-358.2.1.6.%{_target_cpu}}
 
 Summary: Distributed Redundant Block Device driver for Linux
 Name: %{kmod_name}-kmod
-Version: 8.3.14
+Version: 8.3.15
 Release: 1%{?dist}
 License: GPL
 Group: System Environment/Kernel

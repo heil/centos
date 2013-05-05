@@ -5,7 +5,7 @@
 
 Summary: Management utilities for DRBD
 Name: drbd83-utils
-Version: 8.3.14
+Version: 8.3.15
 Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Kernel
