@@ -9,7 +9,7 @@
 
 Name:           haproxy-devel
 Version:        1.5
-Release:        dev17.%{patch_count}
+Release:        dev18.%{patch_count}
 Summary:        HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
 
 Group:          System Environment/Daemons
