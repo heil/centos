@@ -5,8 +5,8 @@
 
 Summary: HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
 Name: haproxy
-Version: 1.4.22
-Release: bas.2
+Version: 1.4.23
+Release: bas.1
 License: GPL
 Group: System Environment/Daemons
 URL: http://haproxy.1wt.eu
@@ -19,6 +19,11 @@ Source0:  http://haproxy.1wt.eu/download/1.4/src/haproxy-%{version}.tar.gz
 Source1: haproxy.cfg
 Source2: haproxy.init
 Source99: filter-haproxy-requires.sh
+
+Patch0: 0001-BUG-MAJOR-backend-consistent-hash-can-loop-forever-i.patch
+Patch1: 0002-BUG-MEDIUM-checks-disable-TCP-quickack-when-pure-TCP.patch
+Patch2: 001-haproxy-1.4.x-sendproxy.patch
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: pcre-devel
@@ -46,7 +51,9 @@ risking the system's stability.
 
 %prep
 %setup
-
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 %build
 %{__make} TARGET=linux26 "COPTS.pcre=-DUSE_PCRE $(pcre-config --cflags)" USE_LINUX_TPROXY=1 USE_LINUX_SPLICE=1 SMALL_OPTS="-DBUFSIZE=16384 -DMAXREWRITE=8192 -DSYSTEM_MAXCONN=65530"
 

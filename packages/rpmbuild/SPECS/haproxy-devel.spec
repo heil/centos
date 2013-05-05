@@ -3,8 +3,8 @@
 %define haproxy_home    %{_localstatedir}/lib/haproxy
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
-%define patch_count	34
-%define altrelease	dev17
+%define patch_count	37
+%define altrelease	dev18
 %define altname	haproxy
 
 Name:           haproxy-devel
@@ -20,40 +20,44 @@ Source0:        http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-%{version}-
 Source1:        %{altname}.init
 Source2:        %{altname}.cfg
 Source3:        %{altname}.logrotate
-Patch0: 0001-BUG-MINOR-time-frequency-counters-are-not-t-1.5-dev17.diff
-Patch1: 0002-BUG-MINOR-http-don-t-process-abortonclose-w-1.5-dev17.diff
-Patch2: 0003-BUG-MEDIUM-stream_interface-don-t-close-out-1.5-dev17.diff
-Patch3: 0004-BUG-MEDIUM-checks-ignore-late-resets-after--1.5-dev17.diff
-Patch4: 0005-DOC-fix-bogus-recommendation-on-usage-of-gp-1.5-dev17.diff
-Patch5: 0006-BUG-MINOR-http-compression-lookup-Cache-Con-1.5-dev17.diff
-Patch6: 0007-DOC-typo-and-minor-fixes-in-compression-par-1.5-dev17.diff
-Patch7: 0008-MINOR-config-http-request-configuration-err-1.5-dev17.diff
-Patch8: 0009-MINOR-signal-don-t-block-SIGPROF-by-default-1.5-dev17.diff
-Patch9: 0010-OPTIM-epoll-make-use-of-EPOLLRDHUP-1.5-dev17.diff
-Patch10: 0011-OPTIM-splice-detect-shutdowns-and-avoid-spl-1.5-dev17.diff
-Patch11: 0012-OPTIM-splice-assume-by-default-that-splice--1.5-dev17.diff
-Patch12: 0013-BUG-MINOR-log-temporary-fix-for-lost-SSL-in-1.5-dev17.diff
-Patch13: 0014-BUG-MEDIUM-peers-only-the-last-peers-sectio-1.5-dev17.diff
-Patch14: 0015-BUG-MEDIUM-remove-supplementary-groups-when-1.5-dev17.diff
-Patch15: 0016-BUG-MEDIUM-config-verbosely-reject-peers-se-1.5-dev17.diff
-Patch16: 0017-BUG-MINOR-epoll-use-a-fix-maxevents-argumen-1.5-dev17.diff
-Patch17: 0018-BUG-MINOR-config-fix-improper-check-for-fai-1.5-dev17.diff
-Patch18: 0019-BUG-MINOR-config-free-peer-s-address-when-e-1.5-dev17.diff
-Patch19: 0020-BUG-MINOR-config-check-the-proper-variable--1.5-dev17.diff
-Patch20: 0021-BUG-MEDIUM-checks-ensure-the-health_status--1.5-dev17.diff
-Patch21: 0022-BUG-MINOR-cli-show-sess-should-always-valid-1.5-dev17.diff
-Patch22: 0023-BUG-MINOR-log-improper-NULL-return-check-on-1.5-dev17.diff
-Patch23: 0024-CLEANUP-http-remove-a-useless-null-check-1.5-dev17.diff
-Patch24: 0025-CLEANUP-tcp-unix-remove-useless-NULL-check--1.5-dev17.diff
-Patch25: 0026-BUG-MEDIUM-signal-signal-handler-does-not-p-1.5-dev17.diff
-Patch26: 0027-BUG-MEDIUM-tools-off-by-one-in-quote_arg-1.5-dev17.diff
-Patch27: 0028-BUG-MEDIUM-uri_auth-missing-NULL-check-and--1.5-dev17.diff
-Patch28: 0029-BUG-MINOR-unix-remove-the-level-field-from--1.5-dev17.diff
-Patch29: 0030-CLEANUP-http-don-t-try-to-deinitialize-http-1.5-dev17.diff
-Patch30: 0031-CLEANUP-config-slowstart-is-never-negative-1.5-dev17.diff
-Patch31: 0032-CLEANUP-config-maxcompcpuusage-is-never-neg-1.5-dev17.diff
-Patch32: 0033-MEDIUM-ssl-add-bind-option-strict-sni-1.5-dev17.diff
-Patch33: 0034-BUG-MEDIUM-ssl-openssl-0.9.8-doesn-t-open-d-1.5-dev17.diff
+
+Patch0: 0001-BUG-MINOR-http-add-header-set-header-did-not-accept-.patch
+Patch1: 0002-MINOR-show-PCRE-version-and-JIT-status-in-vv.patch
+Patch2: 0003-BUILD-mention-in-the-Makefile-that-USE_PCRE_JIT-is-f.patch
+Patch3: 0004-BUG-MEDIUM-splicing-is-broken-since-1.5-dev12.patch
+Patch4: 0005-BUG-MAJOR-acl-add-implicit-arguments-to-the-resolve-.patch
+Patch5: 0006-BUG-regex-fix-pcre-compile-error-when-using-JIT.patch
+Patch6: 0007-BUG-MINOR-tcp-fix-error-reporting-for-TCP-rules.patch
+Patch7: 0008-CLEANUP-peers-remove-a-bit-of-spaghetti-to-prepare-f.patch
+Patch8: 0009-MINOR-stick-table-allow-to-allocate-an-entry-without.patch
+Patch9: 0010-BUG-MAJOR-peers-fix-an-overflow-when-syncing-strings.patch
+Patch10: 0011-MINOR-session-only-call-http_send_name_header-when-c.patch
+Patch11: 0012-MINOR-tcp-report-the-erroneous-word-in-tcp-request-t.patch
+Patch12: 0013-BUG-MAJOR-backend-consistent-hash-can-loop-forever-i.patch
+Patch13: 0014-BUG-MEDIUM-log-fix-regression-on-log-format-handling.patch
+Patch14: 0015-MEDIUM-log-report-file-name-line-number-and-directiv.patch
+Patch15: 0016-BUG-MINOR-cli-clear-table-did-not-work-anymore-witho.patch
+Patch16: 0017-BUG-MINOR-cli-clear-table-xx-data.xx-does-not-work-a.patch
+Patch17: 0018-BUG-MAJOR-http-compression-still-has-defects-on-chun.patch
+Patch18: 0019-BUG-MINOR-jit-don-t-rely-on-USE-flag-to-detect-suppo.patch
+Patch19: 0020-MEDIUM-stats-add-proxy-name-filtering-on-the-statist.patch
+Patch20: 0021-MINOR-stats-remove-the-autofocus-on-the-scope-input-.patch
+Patch21: 0022-BUG-MINOR-stats-fix-confirmation-links-on-the-stats-.patch
+Patch22: 0023-BUG-MINOR-stats-the-status-bar-does-not-appear-anymo.patch
+Patch23: 0024-MINOR-stats-show-soft-stopped-servers-in-different-c.patch
+Patch24: 0025-BUG-MEDIUM-stats-allocate-the-stats-frontend-also-on.patch
+Patch25: 0026-MINOR-compression-acl-res.comp-and-fetch-res.comp_al.patch
+Patch26: 0027-BUG-MEDIUM-stats-fix-a-regression-when-dealing-with-.patch
+Patch27: 0028-BUG-MEDIUM-Fix-crt-list-file-parsing-error-filtered-.patch
+Patch28: 0029-BUG-MINOR-fix-unterminated-ACL-array-in-compression.patch
+Patch29: 0030-BUG-MINOR-config-source-does-not-work-in-defaults-se.patch
+Patch30: 0031-BUILD-last-fix-broke-non-linux-platforms.patch
+Patch31: 0032-BUG-MEDIUM-ssl-EDH-ciphers-are-not-usable-if-no-DH-p.patch
+Patch32: 0033-MINOR-init-indicate-the-SSL-runtime-version-on-vv.patch
+Patch33: 0034-BUG-MEDIUM-shctx-makes-the-code-independent-on-SSL-r.patch
+Patch34: 0035-BUG-MEDIUM-compression-the-deflate-algorithm-must-us.patch
+Patch35: 0036-BUILD-stdbool-is-not-portable-again.patch
+Patch36: 0037-DOC-readme-add-a-small-reminder-about-restrictions-t.patch
 
 
 BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{altrelease}-root-%(%{__id_u} -n)
@@ -123,6 +127,9 @@ availability environments.
 %patch31 -p1
 %patch32 -p1
 %patch33 -p1
+%patch34 -p1
+%patch35 -p1
+%patch36 -p1
 
 %build
 # No configure script is present, it is all done via make flags
