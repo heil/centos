@@ -3,13 +3,13 @@
 %define haproxy_home    %{_localstatedir}/lib/haproxy
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
-%define patch_count	37
-%define altrelease	dev18
+%define patch_count	57
+%define altrelease	dev19
 %define altname	haproxy
 
 Name:           haproxy-devel
 Version:        1.5
-Release:        dev18.%{patch_count}
+Release:        dev19.%{patch_count}
 Summary:        HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
 
 Group:          System Environment/Daemons
@@ -21,44 +21,141 @@ Source1:        %{altname}.init
 Source2:        %{altname}.cfg
 Source3:        %{altname}.logrotate
 
-Patch0: 0001-BUG-MINOR-http-add-header-set-header-did-not-accept-.patch
-Patch1: 0002-MINOR-show-PCRE-version-and-JIT-status-in-vv.patch
-Patch2: 0003-BUILD-mention-in-the-Makefile-that-USE_PCRE_JIT-is-f.patch
-Patch3: 0004-BUG-MEDIUM-splicing-is-broken-since-1.5-dev12.patch
-Patch4: 0005-BUG-MAJOR-acl-add-implicit-arguments-to-the-resolve-.patch
-Patch5: 0006-BUG-regex-fix-pcre-compile-error-when-using-JIT.patch
-Patch6: 0007-BUG-MINOR-tcp-fix-error-reporting-for-TCP-rules.patch
-Patch7: 0008-CLEANUP-peers-remove-a-bit-of-spaghetti-to-prepare-f.patch
-Patch8: 0009-MINOR-stick-table-allow-to-allocate-an-entry-without.patch
-Patch9: 0010-BUG-MAJOR-peers-fix-an-overflow-when-syncing-strings.patch
-Patch10: 0011-MINOR-session-only-call-http_send_name_header-when-c.patch
-Patch11: 0012-MINOR-tcp-report-the-erroneous-word-in-tcp-request-t.patch
-Patch12: 0013-BUG-MAJOR-backend-consistent-hash-can-loop-forever-i.patch
-Patch13: 0014-BUG-MEDIUM-log-fix-regression-on-log-format-handling.patch
-Patch14: 0015-MEDIUM-log-report-file-name-line-number-and-directiv.patch
-Patch15: 0016-BUG-MINOR-cli-clear-table-did-not-work-anymore-witho.patch
-Patch16: 0017-BUG-MINOR-cli-clear-table-xx-data.xx-does-not-work-a.patch
-Patch17: 0018-BUG-MAJOR-http-compression-still-has-defects-on-chun.patch
-Patch18: 0019-BUG-MINOR-jit-don-t-rely-on-USE-flag-to-detect-suppo.patch
-Patch19: 0020-MEDIUM-stats-add-proxy-name-filtering-on-the-statist.patch
-Patch20: 0021-MINOR-stats-remove-the-autofocus-on-the-scope-input-.patch
-Patch21: 0022-BUG-MINOR-stats-fix-confirmation-links-on-the-stats-.patch
-Patch22: 0023-BUG-MINOR-stats-the-status-bar-does-not-appear-anymo.patch
-Patch23: 0024-MINOR-stats-show-soft-stopped-servers-in-different-c.patch
-Patch24: 0025-BUG-MEDIUM-stats-allocate-the-stats-frontend-also-on.patch
-Patch25: 0026-MINOR-compression-acl-res.comp-and-fetch-res.comp_al.patch
-Patch26: 0027-BUG-MEDIUM-stats-fix-a-regression-when-dealing-with-.patch
-Patch27: 0028-BUG-MEDIUM-Fix-crt-list-file-parsing-error-filtered-.patch
-Patch28: 0029-BUG-MINOR-fix-unterminated-ACL-array-in-compression.patch
-Patch29: 0030-BUG-MINOR-config-source-does-not-work-in-defaults-se.patch
-Patch30: 0031-BUILD-last-fix-broke-non-linux-platforms.patch
-Patch31: 0032-BUG-MEDIUM-ssl-EDH-ciphers-are-not-usable-if-no-DH-p.patch
-Patch32: 0033-MINOR-init-indicate-the-SSL-runtime-version-on-vv.patch
-Patch33: 0034-BUG-MEDIUM-shctx-makes-the-code-independent-on-SSL-r.patch
-Patch34: 0035-BUG-MEDIUM-compression-the-deflate-algorithm-must-us.patch
-Patch35: 0036-BUILD-stdbool-is-not-portable-again.patch
-Patch36: 0037-DOC-readme-add-a-small-reminder-about-restrictions-t.patch
-
+Ptch0 0001-CLEANUP-session-remove-event_accept-which-was-not-us.patch
+Patch1 0002-MEDIUM-session-disable-lingering-on-the-server-when-.patch
+Patch2 0003-BUG-MEDIUM-prevent-gcc-from-moving-empty-keywords-li.patch
+Patch3 0004-BUG-MINOR-http-fix-set-tos-not-working-in-certain-co.patch
+Patch4 0005-MEDIUM-http-add-IPv6-support-for-set-tos.patch
+Patch5 0006-DOC-remove-the-comment-saying-that-SSL-certs-are-not.patch
+Patch6 0007-BUG-MINOR-deinit-free-fdinfo-while-doing-cleanup.patch
+Patch7 0008-BUG-counters-third-counter-was-not-stored-if-others-.patch
+Patch8 0009-DOC-minor-typo-fix-in-documentation.patch
+Patch9 0010-BUG-MAJOR-http-don-t-emit-the-send-name-header-when-.patch
+Patch10 0011-BUG-MEDIUM-http-option-checkcache-fails-with-the-no-.patch
+Patch11 0012-BUG-MAJOR-http-sample-prefetch-code-was-not-properly.patch
+Patch12 0013-BUG-MEDIUM-server-set-the-macro-for-server-s-max-wei.patch
+Patch13 0014-BUG-MEDIUM-splicing-fix-abnormal-CPU-usage-with-spli.patch
+Patch14 0015-BUG-MINOR-stream_interface-don-t-call-chk_snd-on-pol.patch
+Patch15 0016-OPTIM-splicing-use-splice-for-the-last-block-when-re.patch
+Patch16 0017-MEDIUM-sample-handle-comma-delimited-converter-list.patch
+Patch17 0018-MINOR-sample-fix-sample_process-handling-of-unstable.patch
+Patch18 0019-CLEANUP-acl-move-the-3-remaining-sample-fetches-to-s.patch
+Patch19 0020-MINOR-sample-add-a-new-date-fetch-to-return-the-curr.patch
+Patch20 0021-MINOR-samples-add-the-http_date-offset-sample-conver.patch
+Patch21 0022-DOC-minor-improvements-to-the-part-on-the-stats-sock.patch
+Patch22 0023-MEDIUM-sample-systematically-pass-the-keyword-pointe.patch
+Patch23 0024-MINOR-payload-split-smp_fetch_rdp_cookie.patch
+Patch24 0025-MINOR-counters-factor-out-smp_fetch_sc-_tracked.patch
+Patch25 0026-MINOR-counters-provide-a-generic-function-to-retriev.patch
+Patch26 0027-MEDIUM-counters-factor-out-smp_fetch_sc-_get_gpc0.patch
+Patch27 0028-MEDIUM-counters-factor-out-smp_fetch_sc-_gpc0_rate.patch
+Patch28 0029-MEDIUM-counters-factor-out-smp_fetch_sc-_inc_gpc0.patch
+Patch29 0030-MEDIUM-counters-factor-out-smp_fetch_sc-_clr_gpc0.patch
+Patch30 0031-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_cnt.patch
+Patch31 0032-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_rate.patch
+Patch32 0033-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_cur.patch
+Patch33 0034-MEDIUM-counters-factor-out-smp_fetch_sc-_sess_cnt.patch
+Patch34 0035-MEDIUM-counters-factor-out-smp_fetch_sc-_sess_rate.patch
+Patch35 0036-MEDIUM-counters-factor-out-smp_fetch_sc-_http_req_cn.patch
+Patch36 0037-MEDIUM-counters-factor-out-smp_fetch_sc-_http_req_ra.patch
+Patch37 0038-MEDIUM-counters-factor-out-smp_fetch_sc-_http_err_cn.patch
+Patch38 0039-MEDIUM-counters-factor-out-smp_fetch_sc-_http_err_ra.patch
+Patch39 0040-MEDIUM-counters-factor-out-smp_fetch_sc-_kbytes_in.patch
+Patch40 0041-MEDIUM-counters-factor-out-smp_fetch_sc-_bytes_in_ra.patch
+Patch41 0042-MEDIUM-counters-factor-out-smp_fetch_sc-_kbytes_out.patch
+Patch42 0043-MEDIUM-counters-factor-out-smp_fetch_sc-_bytes_out_r.patch
+Patch43 0044-MEDIUM-counters-factor-out-smp_fetch_sc-_trackers.patch
+Patch44 0045-MINOR-session-make-the-number-of-stick-counter-entri.patch
+Patch45 0046-MEDIUM-counters-support-passing-the-counter-number-a.patch
+Patch46 0047-MEDIUM-counters-support-looking-up-a-key-in-an-alter.patch
+Patch47 0048-MEDIUM-cli-adjust-the-method-for-feeding-frequency-c.patch
+Patch48 0049-MINOR-cli-make-it-possible-to-enter-multiple-values-.patch
+Patch49 0050-MINOR-payload-allow-the-payload-sample-fetches-to-re.patch
+Patch50 0051-BUG-MINOR-use-the-same-check-condition-for-server-as.patch
+Patch51 0052-BUG-MINOR-cli-clear-table-must-not-kill-entries-that.patch
+Patch52 0053-MINOR-ssl-use-MAXPATHLEN-instead-of-PATH_MAX.patch
+Patch53 0054-MINOR-config-warn-when-a-server-with-no-specific-por.patch
+Patch54 0055-BUG-MEDIUM-unique_id-HTTP-request-counter-must-be-un.patch
+Patch55 0056-BUG-MEDIUM-unique_id-junk-in-log-on-empty-unique_id.patch
+Patch56 0057-BUG-MINOR-log-junk-at-the-end-of-syslog-packet.patch
+Patch57 0058-DOC-add-a-mention-about-the-limited-chunk-size.patch
+Patch58 0059-MINOR-ssl-Add-statement-verifyhost-to-server-stateme.patch
+Patch59 0060-BUG-MEDIUM-fix-broken-send_proxy-on-FreeBSD.patch
+Patch60 0061-MEDIUM-stick-tables-flush-old-entries-upon-soft-stop.patch
+Patch61 0062-MINOR-tcp-add-new-close-action-for-tcp-response.patch
+Patch62 0063-MINOR-payload-provide-the-res.len-fetch-method.patch
+Patch63 0064-BUILD-add-SSL_INC-SSL_LIB-variables-to-force-the-pat.patch
+Patch64 0065-BUG-MEDIUM-ssl-potential-memory-leak-using-verifyhos.patch
+Patch65 0066-BUILD-ssl-compilation-issue-with-openssl-v0.9.6.patch
+Patch66 0067-BUG-MINOR-fix-forcing-fastinter-in-on-error.patch
+heil@sun ~/work/git/centos/packages/rpmbuild/SPECS $ i=0; ls /tmp/patches/ | while read line; do  echo "Patch$i: $line"; i=$((i=$i+1)); done
+Patch0: 0001-CLEANUP-session-remove-event_accept-which-was-not-us.patch
+Patch1: 0002-MEDIUM-session-disable-lingering-on-the-server-when-.patch
+Patch2: 0003-BUG-MEDIUM-prevent-gcc-from-moving-empty-keywords-li.patch
+Patch3: 0004-BUG-MINOR-http-fix-set-tos-not-working-in-certain-co.patch
+Patch4: 0005-MEDIUM-http-add-IPv6-support-for-set-tos.patch
+Patch5: 0006-DOC-remove-the-comment-saying-that-SSL-certs-are-not.patch
+Patch6: 0007-BUG-MINOR-deinit-free-fdinfo-while-doing-cleanup.patch
+Patch7: 0008-BUG-counters-third-counter-was-not-stored-if-others-.patch
+Patch8: 0009-DOC-minor-typo-fix-in-documentation.patch
+Patch9: 0010-BUG-MAJOR-http-don-t-emit-the-send-name-header-when-.patch
+Patch10: 0011-BUG-MEDIUM-http-option-checkcache-fails-with-the-no-.patch
+Patch11: 0012-BUG-MAJOR-http-sample-prefetch-code-was-not-properly.patch
+Patch12: 0013-BUG-MEDIUM-server-set-the-macro-for-server-s-max-wei.patch
+Patch13: 0014-BUG-MEDIUM-splicing-fix-abnormal-CPU-usage-with-spli.patch
+Patch14: 0015-BUG-MINOR-stream_interface-don-t-call-chk_snd-on-pol.patch
+Patch15: 0016-OPTIM-splicing-use-splice-for-the-last-block-when-re.patch
+Patch16: 0017-MEDIUM-sample-handle-comma-delimited-converter-list.patch
+Patch17: 0018-MINOR-sample-fix-sample_process-handling-of-unstable.patch
+Patch18: 0019-CLEANUP-acl-move-the-3-remaining-sample-fetches-to-s.patch
+Patch19: 0020-MINOR-sample-add-a-new-date-fetch-to-return-the-curr.patch
+Patch20: 0021-MINOR-samples-add-the-http_date-offset-sample-conver.patch
+Patch21: 0022-DOC-minor-improvements-to-the-part-on-the-stats-sock.patch
+Patch22: 0023-MEDIUM-sample-systematically-pass-the-keyword-pointe.patch
+Patch23: 0024-MINOR-payload-split-smp_fetch_rdp_cookie.patch
+Patch24: 0025-MINOR-counters-factor-out-smp_fetch_sc-_tracked.patch
+Patch25: 0026-MINOR-counters-provide-a-generic-function-to-retriev.patch
+Patch26: 0027-MEDIUM-counters-factor-out-smp_fetch_sc-_get_gpc0.patch
+Patch27: 0028-MEDIUM-counters-factor-out-smp_fetch_sc-_gpc0_rate.patch
+Patch28: 0029-MEDIUM-counters-factor-out-smp_fetch_sc-_inc_gpc0.patch
+Patch29: 0030-MEDIUM-counters-factor-out-smp_fetch_sc-_clr_gpc0.patch
+Patch30: 0031-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_cnt.patch
+Patch31: 0032-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_rate.patch
+Patch32: 0033-MEDIUM-counters-factor-out-smp_fetch_sc-_conn_cur.patch
+Patch33: 0034-MEDIUM-counters-factor-out-smp_fetch_sc-_sess_cnt.patch
+Patch34: 0035-MEDIUM-counters-factor-out-smp_fetch_sc-_sess_rate.patch
+Patch35: 0036-MEDIUM-counters-factor-out-smp_fetch_sc-_http_req_cn.patch
+Patch36: 0037-MEDIUM-counters-factor-out-smp_fetch_sc-_http_req_ra.patch
+Patch37: 0038-MEDIUM-counters-factor-out-smp_fetch_sc-_http_err_cn.patch
+Patch38: 0039-MEDIUM-counters-factor-out-smp_fetch_sc-_http_err_ra.patch
+Patch39: 0040-MEDIUM-counters-factor-out-smp_fetch_sc-_kbytes_in.patch
+Patch40: 0041-MEDIUM-counters-factor-out-smp_fetch_sc-_bytes_in_ra.patch
+Patch41: 0042-MEDIUM-counters-factor-out-smp_fetch_sc-_kbytes_out.patch
+Patch42: 0043-MEDIUM-counters-factor-out-smp_fetch_sc-_bytes_out_r.patch
+Patch43: 0044-MEDIUM-counters-factor-out-smp_fetch_sc-_trackers.patch
+Patch44: 0045-MINOR-session-make-the-number-of-stick-counter-entri.patch
+Patch45: 0046-MEDIUM-counters-support-passing-the-counter-number-a.patch
+Patch46: 0047-MEDIUM-counters-support-looking-up-a-key-in-an-alter.patch
+Patch47: 0048-MEDIUM-cli-adjust-the-method-for-feeding-frequency-c.patch
+Patch48: 0049-MINOR-cli-make-it-possible-to-enter-multiple-values-.patch
+Patch49: 0050-MINOR-payload-allow-the-payload-sample-fetches-to-re.patch
+Patch50: 0051-BUG-MINOR-use-the-same-check-condition-for-server-as.patch
+Patch51: 0052-BUG-MINOR-cli-clear-table-must-not-kill-entries-that.patch
+Patch52: 0053-MINOR-ssl-use-MAXPATHLEN-instead-of-PATH_MAX.patch
+Patch53: 0054-MINOR-config-warn-when-a-server-with-no-specific-por.patch
+Patch54: 0055-BUG-MEDIUM-unique_id-HTTP-request-counter-must-be-un.patch
+Patch55: 0056-BUG-MEDIUM-unique_id-junk-in-log-on-empty-unique_id.patch
+Patch56: 0057-BUG-MINOR-log-junk-at-the-end-of-syslog-packet.patch
+Patch57: 0058-DOC-add-a-mention-about-the-limited-chunk-size.patch
+Patch58: 0059-MINOR-ssl-Add-statement-verifyhost-to-server-stateme.patch
+Patch59: 0060-BUG-MEDIUM-fix-broken-send_proxy-on-FreeBSD.patch
+Patch60: 0061-MEDIUM-stick-tables-flush-old-entries-upon-soft-stop.patch
+Patch61: 0062-MINOR-tcp-add-new-close-action-for-tcp-response.patch
+Patch62: 0063-MINOR-payload-provide-the-res.len-fetch-method.patch
+Patch63: 0064-BUILD-add-SSL_INC-SSL_LIB-variables-to-force-the-pat.patch
+Patch64: 0065-BUG-MEDIUM-ssl-potential-memory-leak-using-verifyhos.patch
+Patch65: 0066-BUILD-ssl-compilation-issue-with-openssl-v0.9.6.patch
+Patch66: 0067-BUG-MINOR-fix-forcing-fastinter-in-on-error.patch
 
 BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{altrelease}-root-%(%{__id_u} -n)
 BuildRequires:  pcre-devel openssl-devel zlib-devel
@@ -130,6 +227,36 @@ availability environments.
 %patch34 -p1
 %patch35 -p1
 %patch36 -p1
+%patch37 -p1
+%patch38 -p1
+%patch39 -p1
+%patch40 -p1
+%patch41 -p1
+%patch42 -p1
+%patch43 -p1
+%patch44 -p1
+%patch45 -p1
+%patch46 -p1
+%patch47 -p1
+%patch48 -p1
+%patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
+%patch54 -p1
+%patch55 -p1
+%patch56 -p1
+%patch57 -p1
+%patch58 -p1
+%patch59 -p1
+%patch60 -p1
+%patch61 -p1
+%patch62 -p1
+%patch63 -p1
+%patch64 -p1
+%patch65 -p1
+%patch66 -p1
 
 %build
 # No configure script is present, it is all done via make flags
