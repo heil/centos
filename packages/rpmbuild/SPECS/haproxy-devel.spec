@@ -199,14 +199,14 @@ regparm_opts=
 %ifarch %ix86 x86_64
 regparm_opts="USE_REGPARM=1"
 %endif
-make USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET="linux26" USE_PCRE=1 ${regparm_opts} ADDINC="%{optflags} -I/usr/include/pcre" \
+make USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET=linux2628 USE_PCRE=1 ${regparm_opts} ADDINC="%{optflags} -I/usr/include/pcre" \
 	SMALL_OPTS="-DBUFSIZE=16384 -DMAXREWRITE=1030 -DSYSTEM_MAXCONN=165530 " \
 	USE_LINUX_TPROXY=1 USE_LINUX_SPLICE=1 USE_REGPARM=1 USE_OPENSSL=1 \
 	USE_ZLIB=yes \
 	VERSION="%{altrelease}-patch-%{patch_count}" 
 
 make -C contrib/halog \
-	USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET="linux26" USE_PCRE=1 ${regparm_opts} ADDINC="%{optflags} -I/usr/include/pcre" \
+	USE_OPENSSL=1 %{?_smp_mflags} CPU="generic" TARGET=linux2628 USE_PCRE=1 ${regparm_opts} ADDINC="%{optflags} -I/usr/include/pcre" \
 	SMALL_OPTS="-DBUFSIZE=16384 -DMAXREWRITE=1030 -DSYSTEM_MAXCONN=165530 " \
 	USE_LINUX_TPROXY=1 USE_LINUX_SPLICE=1 USE_REGPARM=1 USE_OPENSSL=1 \
 	USE_ZLIB=yes \
