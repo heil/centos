@@ -88,6 +88,25 @@ Patch63: 0064-BUILD-add-SSL_INC-SSL_LIB-variables-to-force-the-pat.patch
 Patch64: 0065-BUG-MEDIUM-ssl-potential-memory-leak-using-verifyhos.patch
 Patch65: 0066-BUILD-ssl-compilation-issue-with-openssl-v0.9.6.patch
 Patch66: 0067-BUG-MINOR-fix-forcing-fastinter-in-on-error.patch
+Patch67: 0067-BUG-MINOR-fix-forcing-fastinter-in-on-error.patch
+Patch68: 0068-MINOR-http-compute-response-time-before-processing-h.patch
+Patch69: 0069-BUG-MINOR-acl-fix-improper-string-size-assignment-in.patch
+Patch70: 0070-DOC-add-missing-options-to-the-manpage.patch
+Patch71: 0071-DOC-add-manpage-references-to-all-system-calls.patch
+Patch72: 0072-DOC-update-manpage-reference-to-haproxy-en.txt.patch
+Patch73: 0073-DOC-remove-s-and-l-options-from-the-manpage.patch
+Patch74: 0074-DOC-ssl-update-build-instructions-to-use-new-SSL_-va.patch
+Patch75: 0075-DOC-fix-typo-in-comments.patch
+Patch76: 0076-BUG-MINOR-deinit-free-server-map-which-is-allocated-.patch
+Patch77: 0077-BUG-MINOR-ssl-potential-memory-leaks-using-ssl_c_key.patch
+Patch78: 0078-MINOR-ssl-optimization-of-verifyhost-on-wildcard-cer.patch
+Patch79: 0079-BUG-MINOR-ssl-verifyhost-does-not-match-empty-string.patch
+Patch80: 0080-BUILD-MINOR-missing-header-file.patch
+Patch81: 0081-DOC-missing-information-for-the-description-keyword.patch
+Patch82: 0082-DOC-missing-http-send-name-header-keyword-in-keyword.patch
+Patch83: 0083-CLEANUP-stream_interface-cleanup-loop-information-in.patch
+Patch84: 0084-CLEANUP-regex-Create-regex_comp-function-that-compil.patch
+Patch85: 0085-BUG-MEDIUM-http-accept-full-buffers-on-smp_prefetch_.patch
 
 BuildRoot:      %{_tmppath}/%{altname}-%{version}-%{altrelease}-root-%(%{__id_u} -n)
 BuildRequires:  pcre-devel openssl-devel zlib-devel
@@ -189,6 +208,25 @@ availability environments.
 %patch64 -p1
 %patch65 -p1
 %patch66 -p1
+%patch67 -p1
+%patch68 -p1
+%patch69 -p1
+%patch70 -p1
+%patch71 -p1
+%patch72 -p1
+%patch73 -p1
+%patch74 -p1
+%patch75 -p1
+%patch76 -p1
+%patch77 -p1
+%patch78 -p1
+%patch79 -p1
+%patch80 -p1
+%patch81 -p1
+%patch82 -p1
+%patch83 -p1
+%patch84 -p1
+%patch85 -p1
 
 %build
 # No configure script is present, it is all done via make flags
